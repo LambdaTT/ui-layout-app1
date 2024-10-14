@@ -82,7 +82,7 @@
 
 <script>
 export default {
-  name: 'ui-layoutapp2-installationbanner',
+  name: 'ui-layoutapp1-installationbanner',
 
   data() {
     return {
