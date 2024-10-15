@@ -31,7 +31,7 @@ export default {
 
   mounted() {
     this.currentTab = this.DefaultTab
-    this.$emit('main-tab-change', this.currentTab)
+    // this.$emit('main-tab-change', this.currentTab)
   }
 }
 </script>
