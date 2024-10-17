@@ -3,7 +3,9 @@
     <q-toolbar class="q-pa-sm text-grey-9">
       <!-- Main logo -->
       <q-toolbar-title>
-        <img class="main-logo vertical-middle" alt="Logo Principal" :src="MainLogoSrc" />
+        <a href="/">
+          <img class="main-logo vertical-middle" alt="Logo Principal" :src="MainLogoSrc" />
+        </a>
       </q-toolbar-title>
 
       <div v-for="(section, name) in $slots" :key="name">
