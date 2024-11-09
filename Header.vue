@@ -14,7 +14,23 @@
         </div>
       </div>
 
-      <q-btn class="q-pa-md" flat round :icon="ActionsBtnIcon" size="md">
+      <q-btn v-if="!!ActionsBtnIcon && !ActionsBtnImg" class="q-pa-md" flat round :icon="ActionsBtnIcon" size="md">
+        <q-menu>
+          <q-list class="q-pa-sm text-grey-8">
+            <q-item v-for="(a, i) in Actions" :key="i" v-close-popup clickable :disable="a.disable" @click="a.fn">
+              <q-item-section side>
+                <q-icon size="sm" :name="a.icon" />
+              </q-item-section>
+              <q-item-section>{{ a.title }}</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+
+      <q-btn v-else class="q-pa-md" flat round size="md">
+        <q-avatar>
+          <img :src="ActionsBtnImg" />
+        </q-avatar>
         <q-menu>
           <q-list class="q-pa-sm text-grey-8">
             <q-item v-for="(a, i) in Actions" :key="i" v-close-popup clickable :disable="a.disable" @click="a.fn">
@@ -40,6 +56,7 @@ export default {
     MainLogoSrc: String,
     Actions: Array,
     ActionsBtnIcon: String,
+    ActionsBtnImg: String
   },
 }
 </script>
