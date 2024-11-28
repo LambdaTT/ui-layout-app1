@@ -2,7 +2,7 @@
   <q-page class="flex q-pa-sm text-center">
     <!--Page Header -->
     <q-card>
-      <q-card-section>
+      <q-card-section :class="`bg-${themeBgColor} text-${themeTextColor}`">
         <!-- Overline -->
         <div v-if="!!$slots.overline" class="text-overline">
           <slot name="overline"></slot>
@@ -16,7 +16,7 @@
         </div>
 
         <!-- Caption -->
-        <div v-if="!!$slots.caption" class="text-caption text-grey">
+        <div v-if="!!$slots.caption" class="text-caption">
           <slot name="caption"></slot>
         </div>
 
@@ -49,14 +49,26 @@
 </template>
 
 <script>
+
 export default {
   name: 'ui-layoutapp1-page',
 
   props: {
     Icon: String,
     Title: String,
+  },
+
+  computed: {
+    themeBgColor() {
+      return process.env.THEME_COLOR;
+    },
+    themeTextColor() {
+      return process.env.THEME_TEXT_COLOR;
+    }
   }
 }
+
+
 </script>
 <style scoped>
 .q-page {
