@@ -21,7 +21,7 @@
 
       <q-card-actions class="justify-center" v-if="!!Actions && Actions.length > 0">
         <q-btn label="Cancelar" color="grey-8" icon="close" v-close-popup></q-btn>
-        <q-btn v-for="(a, i) in Actions" :key="i" :label="a.label" :color="a.color" :icon="a.icon"
+        <q-btn v-for="(a, i) in Actions" :disable="isLoading" :loading="isLoading" :key="i" :label="a.label" :color="a.color" :icon="a.icon"
           @click="a.fn()"></q-btn>
       </q-card-actions>
     </q-card>
@@ -33,6 +33,7 @@ export default {
   name: 'ui-layoutapp1-modal',
 
   props: {
+    isLoading: Boolean,
     HideFn: Function,
     Icon: String,
     Title: String,
