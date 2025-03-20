@@ -65,4 +65,7 @@ export default {
 .main-logo {
   max-width: 155px;
 }
+.q-header{
+  border-bottom: 2px solid #ff8f00;
+}
 </style>
