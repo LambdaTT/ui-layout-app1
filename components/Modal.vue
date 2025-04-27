@@ -14,14 +14,14 @@
 
       <!-- Sections -->
       <div v-for="(section, name) in $slots" :key="name">
-        <q-card-section v-if="name != 'default' && name.includes('section')">
+        <q-card-section v-if="name != 'default' && name.includes('section')" class="q-pa-sm">
           <slot :name="name"></slot>
         </q-card-section>
       </div>
 
-      <q-card-actions class="justify-center" v-if="!!Actions && Actions.length > 0">
-        <q-btn label="Cancelar" color="grey-8" icon="close" v-close-popup></q-btn>
-        <q-btn v-for="(a, i) in Actions" :disable="isLoading" :loading="isLoading" :key="i" :label="a.label" :color="a.color" :icon="a.icon"
+      <q-card-actions class="row justify-center q-px-md q-pb-md q-pt-none" v-if="!!Actions && Actions.length > 0">
+        <q-btn class="col" label="Cancelar" color="grey-8" icon="close" v-close-popup></q-btn>
+        <q-btn class="col" v-for="(a, i) in Actions" :disable="isLoading" :loading="isLoading" :key="i" :label="a.label" :color="a.color" :icon="a.icon"
           @click="a.fn()"></q-btn>
       </q-card-actions>
     </q-card>
