@@ -14,7 +14,7 @@
 
       <!-- Sections -->
       <div v-for="(section, name) in $slots" :key="name">
-        <q-card-section v-if="name != 'default' && name.includes('section')" class="q-pa-sm">
+        <q-card-section v-if="name != 'default' && name.includes('section')" class="q-pa-md">
           <slot :name="name"></slot>
         </q-card-section>
       </div>
