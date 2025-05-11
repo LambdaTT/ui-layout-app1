@@ -9,14 +9,13 @@
         </div>
 
         <!-- Page's Title and Icon -->
-        <div class="text-h5 q-mt-sm q-mb-xs">
+        <div class="text-h5 q-my-sm row flex-center" style="gap:10px">
           <q-icon v-if="Icon" :name="Icon" size="sm"></q-icon>
-          &nbsp;
           <span v-if="Title">{{ Title }}</span>
         </div>
 
         <!-- Caption -->
-        <div v-if="!!$slots.caption" class="text-caption">
+        <div v-if="!!$slots.caption" class="text-caption q-mt-md">
           <slot name="caption"></slot>
         </div>
 
