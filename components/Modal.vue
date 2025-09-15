@@ -1,45 +1,49 @@
 <template>
-  <q-dialog :persistent="persistent" v-model="show" @update:model-value="(v) => $emit('update:model-value', v)"
-    @hide="HideFn">
-    <q-card>
-      <q-toolbar :class="`bg-${themeColor} text-white`">
-        <q-avatar v-if="Icon">
+  <q-dialog backdrop-filter="blur(4px) contrast(40%)" :full-width="FullWidth" @hide="hideFn" @show="showFn"
+    :persistent="Persistent" v-model="show">
+    <q-card style="min-width: 360px">
+      <q-toolbar :class="`full-width bg-${themeColor} text-white`">
+        <q-avatar v-if="!!Icon">
           <q-icon :name="Icon"></q-icon>
         </q-avatar>
 
-        <q-toolbar-title v-if="Title">{{ Title }}</q-toolbar-title>
+        <q-toolbar-title v-if="!!Title">{{ Title }}</q-toolbar-title>
 
         <q-btn flat round dense icon="close" v-close-popup />
       </q-toolbar>
 
-      <!-- Sections -->
-      <div v-for="(section, name) in $slots" :key="name">
-        <q-card-section v-if="name != 'default' && name.includes('section')" class="q-pa-md">
-          <slot :name="name"></slot>
-        </q-card-section>
-      </div>
+      <q-card-section class="q-pa-none q-pa-md-md">
+        <slot></slot>
+      </q-card-section>
 
-      <q-card-actions class="row justify-center q-px-md q-pb-md q-pt-none" v-if="!!Actions && Actions.length > 0">
-        <q-btn class="col" label="Cancelar" color="grey-8" icon="close" v-close-popup></q-btn>
-        <q-btn class="col" v-for="(a, i) in Actions" :disable="isLoading" :loading="isLoading" :key="i" :label="a.label" :color="a.color" :icon="a.icon"
-          @click="a.fn()"></q-btn>
-      </q-card-actions>
+      <q-card-section class="q-pt-none">
+        <div class="row justify-end" style="gap: 4px">
+          <div class="col-12 col-md q-py-xs-xs q-px-md-xs">
+            <q-btn class="full-width" dense label="Fechar" color="grey-8" icon="close" v-close-popup>
+            </q-btn>
+          </div>
+          <div v-show="!HideActions" v-for="action in visibleActions" :key="action.label" class="col-12 q-py-xs-xs q-px-md-xs col-md">
+            <q-btn class="full-width" dense :label="action.label" :color="action.color" :icon="action.icon"
+              @click="action.fn">
+            </q-btn>
+          </div>
+        </div>
+      </q-card-section>
     </q-card>
   </q-dialog>
 </template>
-
 <script>
 export default {
-  name: 'ui-layoutapp1-modal',
+  name: 'ui-layoutadmin-modal',
 
   props: {
-    isLoading: Boolean,
-    HideFn: Function,
-    Icon: String,
     Title: String,
+    Icon: String,
+    Persistent: Boolean,
     Actions: Array,
+    HideActions: Boolean,
     modelValue: Boolean,
-    persistent: Boolean
+    FullWidth: Boolean
   },
 
   data() {
@@ -49,14 +53,32 @@ export default {
   },
 
   watch: {
-    modelValue(v) {
-      this.show = v;
+    show(val) {
+      this.$emit('update:model-value', val);
+    },
+
+    modelValue(val) {
+      this.show = val;
     }
   },
 
   computed: {
-    themeColor() {
+    visibleActions() {
+      if (!this.Actions) return [];
+      return this.Actions.filter(obj => !obj.hide);
+    },
+     themeColor() {
       return process.env.THEME_COLOR;
+    }
+  },
+
+  methods: {
+    hideFn() {
+      setTimeout(() => this.$emit('hide'), 100);
+    },
+
+    showFn() {
+      setTimeout(() => this.$emit('show'), 100);
     }
   },
 }
